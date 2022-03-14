@@ -1,0 +1,103 @@
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { CardStyle } from './styles'
+import api, { apiMock } from "../../Api";
+import Ronaldinho from '../../imagens/ronaldinho.png';
+
+
+interface Jogador {
+    nomeJogador: string;
+    idadeJogador: number;
+    nacionalidadeJogador: string;
+    clubeJogador: string;
+    posicaoJogador: string;
+    overallJogador: number;
+    valorJogador: number;
+    fotoJogador: string;
+    idUsuario: number;
+    id: number;
+}
+
+
+
+export interface CardJogadorProps {
+    setIsModalVisible: Dispatch<SetStateAction<boolean>>;
+    setIdJogador: Dispatch<SetStateAction<number>>;
+    setJogador: Dispatch<SetStateAction<Jogador>>;
+}
+
+
+const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogador, setJogador }) => {
+
+    const [jogadores, setJogadores] = useState<Jogador[]>();
+
+
+    async function GetJogadores() {
+        try {
+            
+            const res = await apiMock.get<Jogador[], any>(`/jogadores?idUsuario=`);
+
+            setJogadores(res.data);
+            console.log(res.data);
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+
+    useEffect(() => {
+        GetJogadores();
+    }, []);
+
+
+    function modalAndIdJogador(idJog, jog){
+        setIdJogador(idJog);
+        setIsModalVisible(true);
+        setJogador(jog);
+    }
+
+
+    return (
+        <CardStyle>
+
+            <div className="container">
+
+                <div className="cards">
+
+                    {jogadores && jogadores.map((jogador) => (
+
+                        <div className="card">
+
+                            <div className="img-compra">
+                                <div className="image">
+                                    <img src={Ronaldinho} alt="" />
+                                </div>
+                                <button className="btn" onClick={e => modalAndIdJogador(jogador.id, jogador)}>Comprar Jogador</button>
+                            </div>
+
+                            <div className="infos">
+                                <p id="nome">Nome: <span>{jogador.nomeJogador}</span></p>
+                                <p id="idade">Idade: <span>{jogador.idadeJogador}</span></p>
+                                <p id="nascionalidade">Nacionalidade: <span>{jogador.nacionalidadeJogador}</span></p>
+                                <p id="clube">Clube: <span>{jogador.clubeJogador}</span></p>
+                                <p id="posicao">Posição: <span>{jogador.posicaoJogador}</span></p>
+                                <p id="over">Overall: <span>{jogador.overallJogador}</span></p>
+                                <p id="valor">Valor: <span>${jogador.valorJogador}</span></p>
+                            </div>
+
+                        </div>
+
+                    ))}
+
+                </div>
+
+            </div>
+
+
+        </CardStyle >
+
+    );
+}
+
+export default CardJogador;
