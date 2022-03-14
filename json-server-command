@@ -1,0 +1,4 @@
+Dentro da pasta src:
+json-server --watch db4.json 
+
+(Sendo o .json o nome arquivo que contém dados em json)
