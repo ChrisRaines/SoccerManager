@@ -23,7 +23,7 @@ data class Usuario (
     var password: String,
 
     @Column(name = "wallet", nullable = false)
-    var wallet: Double? = 100_000.0,
+    var wallet: Double? = 200_000.0,
 
     @Column(name = "foto_perfil", nullable = true)
     var fotoPerfil: String? = null

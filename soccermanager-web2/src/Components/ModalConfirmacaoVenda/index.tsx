@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ModalStyle } from "./styles";
 import CloseIcon from '@mui/icons-material/Close';
-import { apiMock } from "../../Api";
+import { api } from "../../Api";
 
 
 interface Jogador {
@@ -32,41 +32,66 @@ const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handl
     let usuario = localStorage.getItem('usuario');
     const usuarioData: Usuario = JSON.parse(usuario)
 
+    const [jogador, setJogador] = useState<Jogador>();
+    const [usuarioStateCarteira, setUsuarioStateCarteira] = useState<Usuario>();
 
-    async function PatchIdUsuario() {
+
+    async function GetJogadorById(){
         try {
+            const res = await api.get<Jogador>(`/jogadores/${idJogador}`)
+            setJogador(res.data);
 
-            if (jogador.valorJogador <= usuarioData[0].wallet){
+        }  catch (err) {
+            console.log(err)
+        }
+    }
 
-                const saldo = usuarioData[0].wallet - jogador.valorJogador;
 
-                await apiMock.patch<Usuario, any>(`/usuarios/${usuarioData[0].id}`, {
+    async function atualizarCarteira(){
+        try {
+            const res = await api.get<Usuario>(`/usuarios/${usuarioData.id}`);
+            setUsuarioStateCarteira(res.data);
 
+        } catch {
+            console.log("Erro ao atualizar carteira")
+        }  
+    }
+
+
+    useEffect(() => {
+        GetJogadorById()
+        atualizarCarteira()
+    }, []);
+
+
+    async function PatchWalletAndIdUsuarioVenda() {
+        try {
+                
+                console.log(jogador.valorJogador)
+                const saldo = usuarioStateCarteira.wallet + jogador.valorJogador;
+
+                await api.patch<Usuario, any>(`/usuarios/updateWallet`, {
+
+                    id: usuarioData.id,
                     wallet: saldo
     
                 });
 
 
-                await apiMock.patch<Jogador[], any>(`/jogadores/${idJogador}`, {
+                await api.patch<Jogador[], any>(`/jogadores/vender`, {
 
-                    idUsuario: usuarioData[0].id
+                    idJogador: idJogador,
+                    idUsuario: usuarioData.id
     
                 });
 
-    
                 handleOpen();
                 onClose();
                 console.log("Deu certo");
-
-            } else {
-                handleOpenReproved();
-                onClose();
-                console.log("Deu Ruim");
-            }
             
 
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
@@ -84,7 +109,7 @@ const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handl
                     <div>{children}</div>
 
                     <div className="botoes">
-                        <button className="btnSim" onClick={PatchIdUsuario}>Sim</button>
+                        <button className="btnSim" onClick={PatchWalletAndIdUsuarioVenda}>Sim</button>
                         <button onClick={onClose} className="btnNao">Não</button>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api, { apiMock } from "../../Api";
+import { api } from "../../Api";
 import { MyTeamStyle } from './styles'
 import SideBar from "../../Components/SideBar";
 import campo from "../../imagens/campo.png";
@@ -46,7 +46,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 
-
 function MyTeam() {
 
     const [isModalVisibleDetails, setIsModalVisibleDetails] = useState<boolean>(false);
@@ -55,14 +54,17 @@ function MyTeam() {
     const [idJogador, setIdJogador] = useState<number>();
     const [jogadores, setJogadores] = useState<Jogador[]>([]);
 
+    const [jogador, setJogador] = useState<Jogador>();
+
 
     let usuario = localStorage.getItem('usuario');
     const usuarioData: Usuario = JSON.parse(usuario)
     console.log(usuarioData.id);
 
-    async function GetJogadores() {
+    
+    async function GetJogadorByIdUsuario() {
         try {
-            const res = await apiMock.get<Jogador[]>(`/jogadores?idUsuario=${usuarioData[0].id}`);
+            const res = await api.get<Jogador[]>(`/jogadores/findByIdUsuario/${usuarioData.id}`);
             setJogadores(res.data);
         
         } catch (err) {
@@ -71,8 +73,9 @@ function MyTeam() {
     }
 
 
+
     useEffect(() => {
-        GetJogadores();
+        GetJogadorByIdUsuario();
     }, []);
 
 

@@ -14,6 +14,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin("*")
 class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
 
 
@@ -57,7 +58,7 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
     // Post para efetuar o login do usuario
     @PostMapping("/logar")
     fun logar(@RequestBody login: CreateRequestLoginUsuarioDTO): ResponseEntity<Usuario>{
-        val user: Usuario? = repositoryUsuario.findByEmailAndPassword(login.email, login.password);
+        val user: Usuario? = repositoryUsuario.findByUsernameAndPassword(login.username, login.password);
 
         if (user != null) {
             return ResponseEntity.status(200).body(user);
@@ -104,12 +105,12 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
 
 
     // Patch para alterar o saldo da carteira por id
-    @PatchMapping("/updateWallet/{id}")
-    fun updateSaldo(@PathVariable id: Long, @RequestBody user: UpdateRequestWalletUsuarioDTO):
+    @PatchMapping("/updateWallet")
+    fun updateSaldo(@RequestBody user: UpdateRequestWalletUsuarioDTO):
             ResponseEntity<Usuario>{
 
-        if (repositoryUsuario.existsById(id)) {
-            repositoryUsuario.updateWallet(id, user.wallet)
+        if (repositoryUsuario.existsById(user.id)) {
+            repositoryUsuario.updateWallet(user.id, user.wallet)
 
             return ResponseEntity.status(200).build();
         }

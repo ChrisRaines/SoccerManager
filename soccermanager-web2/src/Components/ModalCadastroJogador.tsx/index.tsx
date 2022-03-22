@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { ModalStyle } from "./styles";
-import { apiMock } from "../../Api";
+import { api } from "../../Api";
 
 const Modal = ({ onClose = () => { }, children }) => {
     const [nomeJogador, setNomeJogador] = useState("");
@@ -12,14 +12,13 @@ const Modal = ({ onClose = () => { }, children }) => {
     const [overallJogador, setOverallJogador] = useState("");
     const [valorJogador, setValorJogador] = useState("");
     const [fotoJogador, setFotoJogador] = useState(null);
-    const [idUsuario, setIdUsuario] = useState("");
 
     const [cadastrou, setCadastrou] = useState<boolean>(false);
 
 
     async function CadastrarJogador(): Promise<void> {
         try {
-            const res = await apiMock.post("/jogadores", {
+            const res = await api.post("/jogadores/cadastrar", {
 
                 nomeJogador: nomeJogador,
                 idadeJogador: idadeJogador,
@@ -28,8 +27,7 @@ const Modal = ({ onClose = () => { }, children }) => {
                 posicaoJogador: posicaoJogador,
                 overallJogador: overallJogador,
                 valorJogador: valorJogador,
-                fotoJogador: fotoJogador,
-                idUsuario: idUsuario
+                fotoJogador: fotoJogador
             });
 
             console.log(res.data)

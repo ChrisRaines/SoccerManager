@@ -11,6 +11,8 @@ import javax.transaction.Transactional
 @Repository
 interface JogadorRepository: JpaRepository<Jogador, Long>{
     fun findAllByIdUsuario(idUsuario: Long): List<Jogador?>
+    fun findAllByIdUsuarioIsNull(): List<Jogador>
+
 
     @Modifying
     @Transactional
@@ -18,10 +20,24 @@ interface JogadorRepository: JpaRepository<Jogador, Long>{
     """
         UPDATE public.jogador
         SET id_usuario = :idUsuario
-        WHERE id = :id
+        WHERE id = :idJogador
         """
         , nativeQuery = true
     )
-    fun updateIdUsuario(id: Long, idUsuario: Long);
+    fun updateIdUsuario(idJogador: Long, idUsuario: Long);
+
+
+    @Modifying
+    @Transactional
+    @Query(value =
+    """
+        UPDATE public.jogador
+        SET id_usuario = null
+        WHERE id = :idJogador and
+        id_usuario = :idUsuario
+        """
+        , nativeQuery = true
+    )
+    fun removeIdUsuario(idJogador: Long, idUsuario: Long);
 
 }

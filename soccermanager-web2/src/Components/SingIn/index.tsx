@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { SingInStyle } from './styles'
 import { Link } from 'react-router-dom';
-import { apiMock } from "../../Api";
+import { api } from "../../Api";
 
 
 export interface SingInProps{
@@ -23,12 +23,11 @@ const SingIn:React.FC<SingInProps> = ({setPage}) => {
 
     async function Cadastrar(): Promise<void> {
         try {
-            const res = await apiMock.post("/usuarios", {
+            const res = await api.post("/usuarios/cadastrar", {
 
                 username: username,
                 email: email,
-                password: password,
-                wallet: 100000
+                password: password
 
             });
 

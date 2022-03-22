@@ -72,7 +72,6 @@ export const MyTeamStyle = styled.div`
         padding: 0px;
         padding-top: 6px;
         padding-left: 15px;
-        align-itens: center;
     }
 
 
@@ -85,11 +84,11 @@ export const MyTeamStyle = styled.div`
     .campo {
         height: 75%;
         width: 32vw;
-        align-itens: center;
         display: flex;
         justify-content: center;
         margin-right: 7%;
         margin-top: 6%;
+        
     }
 
     span {

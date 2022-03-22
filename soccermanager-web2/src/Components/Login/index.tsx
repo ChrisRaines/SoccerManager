@@ -1,9 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import SingIn from "../SingIn";
 import { LoginStyle } from './styles'
 import { Link, useNavigate } from 'react-router-dom';
-import { Home } from "@mui/icons-material";
-import api, { apiMock } from '../../Api';
+import { api } from '../../Api';
 
 
 
@@ -25,10 +23,16 @@ const Login: React.FC<LoginProps> = ({ setPage }) => {
 
     async function Logar(): Promise<void> {
         try {
-            const res = await apiMock.get(`/usuarios/?username=${username}&password=${password}`);
+            const res = await api.post("/usuarios/logar", {
+
+                username: username,
+                password: password
+
+            });
+            console.log(res);
             setErro(false);
 
-            if (res.data[0].username) {
+            if (res.data.username) {
                 localStorage.setItem('usuario', JSON.stringify(res.data));
                 history("/mercado");
 

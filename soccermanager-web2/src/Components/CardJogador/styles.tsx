@@ -39,6 +39,7 @@ export const CardStyle = styled.div`
         justify-content: space-evenly;
         flex-wrap: wrap;
         height: auto;
+        margin: 5px;
     }
 
     .card {

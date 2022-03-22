@@ -7,7 +7,7 @@ import PolicyIcon from '@mui/icons-material/Policy';
 import SportsIcon from '@mui/icons-material/Sports';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { apiMock } from '../../Api';
+import { api } from '../../Api';
 
 interface Usuario {
     id: number,
@@ -37,11 +37,10 @@ const SideBar: React.FC<SideBarProps> = ({selected}) =>  {
     }
 
 
-    async function atualuzarUsuario (){
+    async function atualizarCarteira(){
         try {
-            const { data } = await apiMock.get<Usuario, any>(`/usuarios/${usuarioData[0].id}`);
-
-            setUsuarioState(data);
+            const res = await api.get<Usuario>(`/usuarios/${usuarioData.id}`);
+            setUsuarioState(res.data);
             console.log(usuarioState.wallet)
 
         } catch {
@@ -50,7 +49,7 @@ const SideBar: React.FC<SideBarProps> = ({selected}) =>  {
     }
 
     useEffect(() => {
-        atualuzarUsuario();
+        atualizarCarteira();
     },[])
 
     
@@ -122,8 +121,8 @@ const SideBar: React.FC<SideBarProps> = ({selected}) =>  {
                 <div className='userLine'></div>
 
                 <div className='dadosUsuario'>
-                    <p id='nome'>{usuarioData[0].username}</p>
-                    <p id='email'>{usuarioData[0].email}</p>
+                    <p id='nome'>{usuarioData.username}</p>
+                    <p id='email'>{usuarioData.email}</p>
                 </div>
 
             </div>

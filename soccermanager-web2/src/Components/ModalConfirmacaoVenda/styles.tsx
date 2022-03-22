@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const ModalStyle = styled.div`
 
     .modal {
-        margin-top: -20px;
-        margin-left: 36%;
+        margin-top: 150px;
+        margin-left: 30%;
         width: 40vw;
         height: 35vh;
         border: solid 5px black;
@@ -14,6 +14,7 @@ export const ModalStyle = styled.div`
         display: flex;
         flex-direction: column;
         padding-bottom: 50px;
+        z-index: 10;
     }
 
     & svg {

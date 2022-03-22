@@ -9,7 +9,7 @@ import javax.transaction.Transactional
 
 @Repository
 interface UsuarioRepository : JpaRepository<Usuario, Long> {
-    fun findByEmailAndPassword(email: String?, password: String?): Usuario?
+    fun findByUsernameAndPassword(username: String?, password: String?): Usuario?
 
     @Modifying
     @Transactional

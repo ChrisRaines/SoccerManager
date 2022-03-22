@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { CardStyle } from './styles'
-import api, { apiMock } from "../../Api";
+import { api } from "../../Api";
 import Ronaldinho from '../../imagens/ronaldinho.png';
 
 
@@ -31,10 +31,10 @@ const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogad
     const [jogadores, setJogadores] = useState<Jogador[]>();
 
 
-    async function GetJogadores() {
+    async function GetJogadoresByIdUsuarioNull() {
         try {
             
-            const res = await apiMock.get<Jogador[], any>(`/jogadores?idUsuario=`);
+            const res = await api.get<Jogador[], any>(`/jogadores/jogadores-mercado`);
 
             setJogadores(res.data);
             console.log(res.data);
@@ -47,7 +47,7 @@ const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogad
 
 
     useEffect(() => {
-        GetJogadores();
+        GetJogadoresByIdUsuarioNull();
     }, []);
 
 

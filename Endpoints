@@ -1,0 +1,121 @@
+1- GetJogadoresByIdUsuarioNull - esta no cardJogador - este Endpoint deve trazer apenas jogadores que estiverem com o idUsuario nulo ou vazio 
+
+(resolvido, a resolução foi criar um endpoint de compra e um de venda)
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+2- Logar - esta no component de Login solicita email e senha, deve ser trocado de get para post no frontend
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+3- CadastrarJogador - cadastro de jogador feito no modal de cadastro - retirar o idUsuario que esta nele
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+4- PatchWalletAndIdUsuarioCompra - esta localizado no component ModalConfirmacaoCompra é uma função com duas chamadas, onde existe um endpoint para alterar o saldo da carteira do usuario ao comprar um jogador e alterar o idUsuario do jogador que esta sendo comprado
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+5- PatchWalletAndIdUsuarioVenda - esta localizado no component ModalConfirmacaoVenda, tem a mesma função do anterior porém ao inverso, para efetuar a venda de um jogador, atualizando o saldo da carteira do usuário e retirando o idUsuario do jogador vendido
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+6- GetJogadorById - esta no component de ModalJogador que faz a busca de um jogador expecifico por ID
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+7- atualuzarUsuario - esta no component de sideBar e tem apenas a funcionalidade de buscar um usuario por ID, atualizando os dados que estão no localStorage
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+8 - Cadastrar - esta no component de singIn, serve apenas para fazer o cadastro de um usuário (retirar o valor wallet desse cadastro no front e backend)
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+9- GetJogadorByIdUsuario - localizado na page myTeam, busca os jogadores que tem o idUsuario do usuario que esta logado no momento com o localStorage 
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+o que falta fazer: 
+
+1- na pag myTeam adicionar "jogador" nos atributos do modalConfirmacaoVenda, pois para vender ele precisa receber o jogador a ser vendido e fazer o calculo de retirada deste valor da carteira do usuario neste component de venda
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+
+2- ajustar o component de modal de confirmação de venda do jogador na pag myTeam no css
+
+(OK)
+
+-------------------------------------------------------------------------------------------------------
+
+3- adicionar um endpoint que tras as informações do usuario na pag de perfil e outro endpoint de put para alterar essas informações caso o usuário deseje
+
+
+
+nm = name
+
+ds = description
+
+cd = code
+
+dh - date
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

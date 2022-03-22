@@ -2,15 +2,14 @@ package br.com.valemobi.soccermanager.controller
 
 import br.com.valemobi.soccermanager.domain.Jogador
 import br.com.valemobi.soccermanager.domain.Usuario
-import br.com.valemobi.soccermanager.dto.CreateRequestJogadorDTO
-import br.com.valemobi.soccermanager.dto.UpdateRequestIdUsuarioInJogadorDTO
-import br.com.valemobi.soccermanager.dto.UpdateRequestWalletUsuarioDTO
+import br.com.valemobi.soccermanager.dto.*
 import br.com.valemobi.soccermanager.repository.JogadorRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/jogadores")
+@CrossOrigin("*")
 data class JogadorController(var repositoryJogador: JogadorRepository){
 
 
@@ -24,6 +23,19 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
         }
 
         return ResponseEntity.status(204).build();
+    }
+
+
+    // Get para buscar todos os jogadores disponiveis no mercado, sem um idUsuario preenchido
+    @GetMapping("/jogadores-mercado")
+    fun findAllJogadoresIdUsuarioNull(): ResponseEntity<List<Jogador?>>{
+        val jogadores: List<Jogador?> = repositoryJogador.findAllByIdUsuarioIsNull();
+
+        if (!jogadores.isEmpty()){
+            return ResponseEntity.status(200).body(jogadores)
+        }
+
+        return ResponseEntity.status(204).build()
     }
 
 
@@ -86,20 +98,31 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
     }
 
 
+
     // Patch para alterar o id do usuario  que existe no jogador (Para efeturar a compra do jogador)
     // Associando o id do usuario ao jogador
-    @PatchMapping("/update-idusuario/{idJogador}")
-    fun updateIdUsuario(@PathVariable idJogador: Long, @RequestBody jogador: UpdateRequestIdUsuarioInJogadorDTO):
-            ResponseEntity<Usuario>{
+    @PatchMapping("/comprar")
+    fun comprarJogador(@RequestBody comprarJogadorRequestDto: ComprarJogadorRequestDto): ResponseEntity<Jogador>{
+        if (repositoryJogador.existsById(comprarJogadorRequestDto.idJogador)){
+            repositoryJogador.updateIdUsuario(comprarJogadorRequestDto.idJogador, comprarJogadorRequestDto.idUsuario)
 
-        if (repositoryJogador.existsById(idJogador)) {
-            repositoryJogador.updateIdUsuario(idJogador, jogador.idUsuario)
+            return ResponseEntity.status(200).build()
+        }
+        return ResponseEntity.status(204).build()
+    }
+
+
+
+    // Patch para alterar o idUsuario do jogador para null, efetuando a venda, fazendo ele voltar
+    // para o mercado
+    @PatchMapping("/vender")
+    fun venderJogador(@RequestBody venderJogadorRequestDto: VenderJogadorRequestDto): ResponseEntity<Jogador>{
+        if (repositoryJogador.existsById(venderJogadorRequestDto.idJogador)){
+            repositoryJogador.removeIdUsuario(venderJogadorRequestDto.idJogador, venderJogadorRequestDto.idUsuario)
 
             return ResponseEntity.status(200).build();
         }
-
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.status(204).build();
     }
-
 
 }

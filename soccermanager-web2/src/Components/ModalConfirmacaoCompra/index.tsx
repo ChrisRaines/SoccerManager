@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ModalStyle } from "./styles";
 import CloseIcon from '@mui/icons-material/Close';
-import { apiMock } from "../../Api";
-
+import { api } from "../../Api";
 
 
 interface Jogador {
@@ -33,24 +32,44 @@ const ModalConfirmacao = ({ onClose = () => { }, children, idJogador, jogador, h
     let usuario = localStorage.getItem('usuario');
     const usuarioData: Usuario = JSON.parse(usuario)
 
+    const [usuarioStateCarteira, setUsuarioStateCarteira] = useState<Usuario>();
 
-    async function PatchIdUsuario() {
+
+    async function atualizarCarteira(){
+        try {
+            const res = await api.get<Usuario>(`/usuarios/${usuarioData.id}`);
+            setUsuarioStateCarteira(res.data);
+
+        } catch {
+            console.log("Erro ao atualizar carteira")
+        }  
+    }
+
+
+    useEffect(() => {
+        atualizarCarteira();
+    },[])
+
+
+    async function PatchWalletAndIdUsuarioCompra() {
         try {
 
-            if (jogador.valorJogador <= usuarioData[0].wallet){
+            if (jogador.valorJogador <= usuarioData.wallet){
 
-                const saldo = usuarioData[0].wallet - jogador.valorJogador;
+                const saldo = usuarioStateCarteira.wallet - jogador.valorJogador;
 
-                await apiMock.patch<Usuario, any>(`/usuarios/${usuarioData[0].id}`, {
+                await api.patch<Usuario, any>("/usuarios/updateWallet", {
 
+                    id: usuarioData.id,
                     wallet: saldo
     
                 });
 
 
-                await apiMock.patch<Jogador[], any>(`/jogadores/${idJogador}`, {
+                await api.patch<Jogador[], any>("/jogadores/comprar", {
 
-                    idUsuario: usuarioData[0].id
+                    idJogador: idJogador,
+                    idUsuario: usuarioData.id
     
                 });
 
@@ -83,7 +102,7 @@ const ModalConfirmacao = ({ onClose = () => { }, children, idJogador, jogador, h
                     <div>{children}</div>
 
                     <div className="botoes">
-                        <button className="btnSim" onClick={PatchIdUsuario}>Sim</button>
+                        <button className="btnSim" onClick={PatchWalletAndIdUsuarioCompra}>Sim</button>
                         <button onClick={onClose} className="btnNao">Não</button>
                     </div>
                 </div>

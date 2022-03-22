@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { ModalStyle } from "./styles";
-import { apiMock } from "../../Api";
+import { api } from "../../Api";
 import Ronaldinho from '../../imagens/ronaldinho.png';
 
 
@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({ onClose = () => { }, children, setIsModal
 
     async function GetJogadorById() {
         try {
-            const res = await apiMock.get<Jogador, any>(`/jogadores/${children}`);
+            const res = await api.get<Jogador, any>(`/jogadores/${children}`);
             setJogador(res.data);
             console.log(res.data);
         } catch (err) {
