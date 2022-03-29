@@ -1,22 +1,9 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { CardStyle } from './styles'
 import { api } from "../../Api";
 import Ronaldinho from '../../imagens/ronaldinho.png';
-
-
-interface Jogador {
-    nomeJogador: string;
-    idadeJogador: number;
-    nacionalidadeJogador: string;
-    clubeJogador: string;
-    posicaoJogador: string;
-    overallJogador: number;
-    valorJogador: number;
-    fotoJogador: string;
-    idUsuario: number;
-    id: number;
-}
-
+import Jogador from '../../Interfaces/jogadorInterface'
+import Context from "../../Context/context";
 
 
 export interface CardJogadorProps {
@@ -27,16 +14,16 @@ export interface CardJogadorProps {
 
 
 const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogador, setJogador }) => {
-
-    const [jogadores, setJogadores] = useState<Jogador[]>();
+    
+    const { jogadores, setJogadores } = useContext(Context);
 
 
     async function GetJogadoresByIdUsuarioNull() {
         try {
             
             const res = await api.get<Jogador[], any>(`/jogadores/jogadores-mercado`);
-
             setJogadores(res.data);
+        
             console.log(res.data);
 
         } catch (err) {

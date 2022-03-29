@@ -54,19 +54,17 @@ function MyTeam() {
     const [idJogador, setIdJogador] = useState<number>();
     const [jogadores, setJogadores] = useState<Jogador[]>([]);
 
-    const [jogador, setJogador] = useState<Jogador>();
-
 
     let usuario = localStorage.getItem('usuario');
     const usuarioData: Usuario = JSON.parse(usuario)
     console.log(usuarioData.id);
 
-    
+
     async function GetJogadorByIdUsuario() {
         try {
             const res = await api.get<Jogador[]>(`/jogadores/findByIdUsuario/${usuarioData.id}`);
             setJogadores(res.data);
-        
+
         } catch (err) {
             console.log(err)
         }
@@ -80,7 +78,7 @@ function MyTeam() {
 
 
 
-    function HandleClick(props) {
+    function handleClick(props) {
         setIdJogador(props);
         setIsModalVisibleDetails(true);
     }
@@ -98,22 +96,12 @@ function MyTeam() {
     const { vertical, horizontal, open, openError } = state;
 
 
-    const handleClose = () => {
-        setState({ ...state, open: false });
-    };
-
-
     const handleOpen = () => {
         setState({ ...state, open: true });
     };
 
-
-    const handleOpenReproved = () => {
-        setState({ ...state, openError: true });
-    }
-
-    const handleCloseReproved = () => {
-        setState({ ...state, openError: false });
+    const handleClose = () => {
+        setState({ ...state, open: false });
     };
 
 
@@ -127,7 +115,7 @@ function MyTeam() {
                 <div className="container">
                     <div className="divModal">
 
-                        {isModalVisibleVenda ? <ModalConfirmacaoVenda onClose={() => setIsModalVisibleVenda(false)} handleOpen={handleOpen} handleOpenReproved={handleOpenReproved} idJogador={idJogador} children={<h1>Gostaria Realmente de vender este jogador?</h1>}/> : null}
+                        {isModalVisibleVenda ? <ModalConfirmacaoVenda onClose={() => setIsModalVisibleVenda(false)} handleOpen={handleOpen} idJogador={idJogador} jogadores={jogadores} setJogadores={setJogadores} children={<h1>Gostaria Realmente de vender este jogador?</h1>} /> : null}
 
                         {isModalVisibleDetails ? <ModalJogador setIsModalVisibleVenda={setIsModalVisibleVenda} onClose={() => setIsModalVisibleDetails(false)} children={idJogador} /> :
 
@@ -135,7 +123,7 @@ function MyTeam() {
 
                                 {jogadores && jogadores.map((jogador) => (
 
-                                    <div className="jogador" key={jogador.id} onClick={e => HandleClick(jogador.id)}>
+                                    <div className="jogador" key={jogador.id} onClick={e => handleClick(jogador.id)}>
                                         {console.log(idJogador)}
 
                                         <div className="foto"><img src={Ronaldinho} alt="" /></div>
@@ -149,6 +137,13 @@ function MyTeam() {
 
                             </div>
                         }
+
+                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal}>
+                            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                                Jogador Vendido com sucesso!
+                            </Alert>
+                        </Snackbar>
+
                     </div>
 
 

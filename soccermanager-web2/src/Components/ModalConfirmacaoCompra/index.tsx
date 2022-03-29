@@ -1,79 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ModalStyle } from "./styles";
 import CloseIcon from '@mui/icons-material/Close';
 import { api } from "../../Api";
-
-
-interface Jogador {
-    nomeJogador: string;
-    idadeJogador: number;
-    nacionalidadeJogador: string;
-    clubeJogador: string;
-    posicaoJogador: string;
-    overallJogador: number;
-    valorJogador: number;
-    fotoJogador: string;
-    idUsuario: number;
-    id: number;
-}
-
-interface Usuario {
-    id: number,
-    username: string,
-    email: string,
-    password: string
-    wallet: number
-}
+import Context from '../../Context/context';
+import Usuario from '../../Interfaces/usuarioInterface';
+import Jogador from '../../Interfaces/jogadorInterface';
 
 
 const ModalConfirmacao = ({ onClose = () => { }, children, idJogador, jogador, handleOpen = () => { }, handleOpenReproved = () => { } }) => {
-    
 
-    let usuario = localStorage.getItem('usuario');
-    const usuarioData: Usuario = JSON.parse(usuario)
-
-    const [usuarioStateCarteira, setUsuarioStateCarteira] = useState<Usuario>();
-
-
-    async function atualizarCarteira(){
-        try {
-            const res = await api.get<Usuario>(`/usuarios/${usuarioData.id}`);
-            setUsuarioStateCarteira(res.data);
-
-        } catch {
-            console.log("Erro ao atualizar carteira")
-        }  
-    }
-
-
-    useEffect(() => {
-        atualizarCarteira();
-    },[])
+    const { usuario, setUsuario, jogadores, setJogadores } = useContext(Context);
 
 
     async function PatchWalletAndIdUsuarioCompra() {
         try {
 
-            if (jogador.valorJogador <= usuarioData.wallet){
+            if (jogador.valorJogador <= usuario?.wallet) {
 
-                const saldo = usuarioStateCarteira.wallet - jogador.valorJogador;
+                const saldo = usuario?.wallet - jogador.valorJogador;
+                setUsuario(prevState => ({ ...prevState, wallet: saldo }))
 
                 await api.patch<Usuario, any>("/usuarios/updateWallet", {
 
-                    id: usuarioData.id,
+                    id: usuario?.id,
                     wallet: saldo
-    
+
                 });
 
 
-                await api.patch<Jogador[], any>("/jogadores/comprar", {
+                await api.post<Jogador[], any>("/jogadores/comprar", {
 
                     idJogador: idJogador,
-                    idUsuario: usuarioData.id
-    
+                    idUsuario: usuario?.id
+
                 });
 
-    
+                
+                const novosJogadores = jogadores.filter((item) => item.id !== idJogador);
+                setJogadores(novosJogadores);
+
+
                 handleOpen();
                 onClose();
                 console.log("Deu certo");
@@ -83,12 +49,15 @@ const ModalConfirmacao = ({ onClose = () => { }, children, idJogador, jogador, h
                 onClose();
                 console.log("Deu Ruim");
             }
-            
+
 
         } catch (err) {
             console.log(err)
         }
     }
+
+
+    
 
 
     return (

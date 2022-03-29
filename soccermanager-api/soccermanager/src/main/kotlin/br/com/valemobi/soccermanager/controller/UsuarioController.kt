@@ -54,7 +54,6 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
     }
 
 
-
     // Post para efetuar o login do usuario
     @PostMapping("/logar")
     fun logar(@RequestBody login: CreateRequestLoginUsuarioDTO): ResponseEntity<Usuario>{

@@ -1,8 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 import { LoginStyle } from './styles'
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../Api';
-
+import Context from "../../Context/context";
 
 
 export interface LoginProps {
@@ -15,11 +15,15 @@ const Login: React.FC<LoginProps> = ({ setPage }) => {
     const [password, setPassword] = useState("");
     const [erro, setErro] = useState(false);
 
+    const { setUsuario } = useContext(Context);
+
+    
     let history = useNavigate();
 
     function changePage() {
         setPage('cadastrar');
     }
+
 
     async function Logar(): Promise<void> {
         try {
@@ -34,6 +38,7 @@ const Login: React.FC<LoginProps> = ({ setPage }) => {
 
             if (res.data.username) {
                 localStorage.setItem('usuario', JSON.stringify(res.data));
+                setUsuario(res.data);
                 history("/mercado");
 
             } else {

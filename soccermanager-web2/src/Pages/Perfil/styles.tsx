@@ -15,7 +15,7 @@ export const PerfilStyle = styled.div`
 
     .content {
         width: 60vw;
-        height: 55vh;
+        height: 65vh;
         background: blue;
         margin-top: 110px;
         margin-left: 27%;
@@ -75,6 +75,9 @@ export const PerfilStyle = styled.div`
         height: 28px;
         border-radius: 5px;
         border-style: none;
+        padding-left: 5px;
+        font-weight: 500;
+        font-size: 15px;
     }
 
     button {

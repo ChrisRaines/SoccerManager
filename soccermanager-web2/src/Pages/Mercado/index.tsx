@@ -6,20 +6,8 @@ import SearchBar from "../../Components/ SearchBar";
 import ModalConfirmacao from "../../Components/ModalConfirmacaoCompra";
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { Snackbar, SnackbarOrigin } from "@mui/material";
+import Jogador from '../../Interfaces/jogadorInterface';
 
-
-interface Jogador {
-    nomeJogador: string;
-    idadeJogador: number;
-    nacionalidadeJogador: string;
-    clubeJogador: string;
-    posicaoJogador: string;
-    overallJogador: number;
-    valorJogador: number;
-    fotoJogador: string;
-    idUsuario: number;
-    id: number;
-}
 
 export interface State extends SnackbarOrigin {
     open?: boolean;

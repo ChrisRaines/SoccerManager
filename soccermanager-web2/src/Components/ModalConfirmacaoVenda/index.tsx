@@ -1,39 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ModalStyle } from "./styles";
 import CloseIcon from '@mui/icons-material/Close';
 import { api } from "../../Api";
+import Context from "../../Context/context";
+import Jogador from '../../Interfaces/jogadorInterface';
+import Usuario from '../../Interfaces/usuarioInterface';
 
 
-interface Jogador {
-    nomeJogador: string;
-    idadeJogador: number;
-    nacionalidadeJogador: string;
-    clubeJogador: string;
-    posicaoJogador: string;
-    overallJogador: number;
-    valorJogador: number;
-    fotoJogador: string;
-    idUsuario: number;
-    id: number;
-}
-
-interface Usuario {
-    id: number,
-    username: string,
-    email: string,
-    password: string
-    wallet: number
-}
-
-
-const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handleOpen = () => { }, handleOpenReproved = () => { } }) => {
+const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handleOpen = () => { }, jogadores, setJogadores }) => {
     
 
-    let usuario = localStorage.getItem('usuario');
-    const usuarioData: Usuario = JSON.parse(usuario)
-
     const [jogador, setJogador] = useState<Jogador>();
-    const [usuarioStateCarteira, setUsuarioStateCarteira] = useState<Usuario>();
+    const { usuario, setUsuario } = useContext(Context);
 
 
     async function GetJogadorById(){
@@ -47,43 +25,36 @@ const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handl
     }
 
 
-    async function atualizarCarteira(){
-        try {
-            const res = await api.get<Usuario>(`/usuarios/${usuarioData.id}`);
-            setUsuarioStateCarteira(res.data);
-
-        } catch {
-            console.log("Erro ao atualizar carteira")
-        }  
-    }
-
-
     useEffect(() => {
         GetJogadorById()
-        atualizarCarteira()
     }, []);
 
 
     async function PatchWalletAndIdUsuarioVenda() {
         try {
-                
-                console.log(jogador.valorJogador)
-                const saldo = usuarioStateCarteira.wallet + jogador.valorJogador;
+            
+                const saldo = usuario?.wallet + jogador.valorJogador;
+                setUsuario(prevState => ({ ...prevState, wallet: saldo }))
 
                 await api.patch<Usuario, any>(`/usuarios/updateWallet`, {
 
-                    id: usuarioData.id,
+                    id: usuario?.id,
                     wallet: saldo
     
                 });
 
 
-                await api.patch<Jogador[], any>(`/jogadores/vender`, {
+                await api.post<Jogador[], any>(`/jogadores/vender`, {
 
                     idJogador: idJogador,
-                    idUsuario: usuarioData.id
+                    idUsuario: usuario?.id
     
                 });
+
+
+                const novosJogadores = jogadores.filter((item) => item.id !== idJogador);
+                setJogadores(novosJogadores);
+                
 
                 handleOpen();
                 onClose();
@@ -94,8 +65,6 @@ const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handl
             console.log(err);
         }
     }
-
-
 
 
     return (

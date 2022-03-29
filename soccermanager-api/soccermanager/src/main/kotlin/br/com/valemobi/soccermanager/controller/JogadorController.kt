@@ -83,7 +83,6 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
     }
 
 
-
     // Delete para excluir um jogador existente
     @DeleteMapping("/{id}")
     fun deleteJogadorById(@PathVariable id: Long): ResponseEntity<Jogador>{
@@ -98,10 +97,10 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
     }
 
 
-
-    // Patch para alterar o id do usuario  que existe no jogador (Para efeturar a compra do jogador)
-    // Associando o id do usuario ao jogador
-    @PatchMapping("/comprar")
+    // Post para informar qual idUsuario esta comprando qual idJogador
+    // alterando o idUsuario que existe no jogador (Para efeturar a compra do jogador)
+    // Associando o idUsuario enviado no body ao jogador
+    @PostMapping("/comprar")
     fun comprarJogador(@RequestBody comprarJogadorRequestDto: ComprarJogadorRequestDto): ResponseEntity<Jogador>{
         if (repositoryJogador.existsById(comprarJogadorRequestDto.idJogador)){
             repositoryJogador.updateIdUsuario(comprarJogadorRequestDto.idJogador, comprarJogadorRequestDto.idUsuario)
@@ -112,10 +111,9 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
     }
 
 
-
-    // Patch para alterar o idUsuario do jogador para null, efetuando a venda, fazendo ele voltar
-    // para o mercado
-    @PatchMapping("/vender")
+    // Post para informar qual idUsuario esta vendendo jogador por idJogador
+    // alterando o idUsuario do jogador para null, efetuando a venda, fazendo ele voltar para o mercado
+    @PostMapping("/vender")
     fun venderJogador(@RequestBody venderJogadorRequestDto: VenderJogadorRequestDto): ResponseEntity<Jogador>{
         if (repositoryJogador.existsById(venderJogadorRequestDto.idJogador)){
             repositoryJogador.removeIdUsuario(venderJogadorRequestDto.idJogador, venderJogadorRequestDto.idUsuario)
