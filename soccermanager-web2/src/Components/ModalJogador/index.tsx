@@ -3,20 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ModalStyle } from "./styles";
 import { api } from "../../Api";
 import Ronaldinho from '../../imagens/ronaldinho.png';
-
-
-interface Jogador {
-    nomeJogador: string;
-    idadeJogador: number;
-    nacionalidadeJogador: string;
-    clubeJogador: string;
-    posicaoJogador: string;
-    overallJogador: number;
-    valorJogador: number;
-    fotoJogador: string;
-    idUsuario: number;
-    id: number;
-}
+import Jogador from '../../Interfaces/jogadorInterface';
 
 
 export interface ModalProps {
@@ -38,6 +25,12 @@ const Modal: React.FC<ModalProps> = ({ onClose = () => { }, children, setIsModal
         } catch (err) {
             console.log(err)
         }
+    }
+
+
+    function handleClick() {
+        setIsModalVisibleVenda(true)
+        onClose();
     }
 
 
@@ -72,7 +65,7 @@ const Modal: React.FC<ModalProps> = ({ onClose = () => { }, children, setIsModal
                                 <li>Overall: <span>{jogador.overallJogador}</span></li>
                                 <li>Valor: <span>${jogador.valorJogador}</span></li>
                             </ul>
-                            <button className="btn" onClick={e => setIsModalVisibleVenda(true)}>Vender Jogador</button>
+                            <button className="btn" onClick={e => handleClick()}>Vender Jogador</button>
 
                         </div>
                     </div>

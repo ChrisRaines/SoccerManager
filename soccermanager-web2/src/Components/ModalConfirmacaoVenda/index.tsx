@@ -8,18 +8,18 @@ import Usuario from '../../Interfaces/usuarioInterface';
 
 
 const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handleOpen = () => { }, jogadores, setJogadores }) => {
-    
+
 
     const [jogador, setJogador] = useState<Jogador>();
     const { usuario, setUsuario } = useContext(Context);
 
 
-    async function GetJogadorById(){
+    async function GetJogadorById() {
         try {
             const res = await api.get<Jogador>(`/jogadores/${idJogador}`)
             setJogador(res.data);
 
-        }  catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -32,34 +32,35 @@ const ModalConfirmacaoVenda = ({ onClose = () => { }, children, idJogador, handl
 
     async function PatchWalletAndIdUsuarioVenda() {
         try {
-            
-                const saldo = usuario?.wallet + jogador.valorJogador;
-                setUsuario(prevState => ({ ...prevState, wallet: saldo }))
 
-                await api.patch<Usuario, any>(`/usuarios/updateWallet`, {
+            const saldo = usuario?.wallet + jogador.valorJogador;
+            setUsuario(prevState => ({ ...prevState, wallet: saldo }))
 
-                    id: usuario?.id,
-                    wallet: saldo
-    
-                });
+            await api.patch<Usuario, any>(`/usuarios/updateWallet`, {
 
+                id: usuario?.id,
+                wallet: saldo
 
-                await api.post<Jogador[], any>(`/jogadores/vender`, {
-
-                    idJogador: idJogador,
-                    idUsuario: usuario?.id
-    
-                });
+            });
 
 
-                const novosJogadores = jogadores.filter((item) => item.id !== idJogador);
-                setJogadores(novosJogadores);
-                
+            await api.post<Jogador[], any>(`/jogadores/vender`, {
 
-                handleOpen();
-                onClose();
-                console.log("Deu certo");
-            
+                idJogador: idJogador,
+                idUsuario: usuario?.id
+
+            });
+
+
+            const novosJogadores = jogadores.filter((item) => item.id !== idJogador);
+            setJogadores(novosJogadores);
+
+
+
+            onClose();
+            handleOpen();
+            console.log("Deu certo");
+
 
         } catch (err) {
             console.log(err);

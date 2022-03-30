@@ -8,28 +8,8 @@ import Ronaldinho from '../../imagens/ronaldinho.png'
 import ModalConfirmacaoVenda from "../../Components/ModalConfirmacaoVenda";
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { Snackbar, SnackbarOrigin } from "@mui/material";
-
-
-
-interface Usuario {
-    id: number,
-    username: string,
-    email: string,
-    password: string
-    wallet: number
-}
-
-
-interface Jogador {
-    nomeJogador: string;
-    idadeJogador: number;
-    nacionalidadeJogador: string;
-    clubeJogador: string;
-    posicaoJogador: string;
-    overallJogador: number;
-    fotoJogador: string;
-    id: number;
-}
+import Usuario from '../../Interfaces/usuarioInterface';
+import Jogador from '../../Interfaces/jogadorInterface';
 
 
 export interface State extends SnackbarOrigin {

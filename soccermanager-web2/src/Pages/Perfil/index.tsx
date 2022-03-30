@@ -4,8 +4,8 @@ import SideBar from "../../Components/SideBar";
 import { PerfilStyle } from './styles'
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { Snackbar, SnackbarOrigin } from "@mui/material";
-import Usuario from '../../Interfaces/usuarioInterface';
 import Context from "../../Context/context";
+import Usuario from "../../Interfaces/usuarioInterface";
 
 
 export interface State extends SnackbarOrigin {
@@ -23,8 +23,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 
 function Perfil() {
-    // const [usuarioData, setUsuarioData] = useState<Usuario>()
     const { usuario, setUsuario } = useContext(Context);
+    const [usuarioPerfil, setUsuarioPerfil] = useState<Usuario>();
+
 
     async function editarPerfil() {
         try {
@@ -44,12 +45,6 @@ function Perfil() {
             console.log(error);
         }
     }
-
-    // useEffect(() => {
-    //     let usuario = localStorage.getItem('usuario');
-    //     setUsuarioData(JSON.parse(usuario))
-    // }, []);
-
 
 
     const [state, setState] = React.useState<State>({
@@ -76,12 +71,18 @@ function Perfil() {
         editarPerfil();
         handleOpen();
     }
+    
+
+    useEffect(() => {
+        setUsuarioPerfil(usuario);
+    },[])
 
 
     return (
         <>
             <SideBar selected="perfil" />
             <PerfilStyle>
+
                 <div className="container">
 
                     <div className="content">
@@ -124,18 +125,20 @@ function Perfil() {
                             </div>
 
                             <button onClick={() => handleClick()}>Salvar Alterações</button>
+
                         </div>
 
                     </div>
 
-                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal}>
-                        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                            Perfil alterado com sucesso!
-                        </Alert>
-                    </Snackbar>
-
                 </div>
             </PerfilStyle>
+
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Perfil alterado com sucesso!
+                </Alert>
+            </Snackbar>
+            
         </>
     );
 }

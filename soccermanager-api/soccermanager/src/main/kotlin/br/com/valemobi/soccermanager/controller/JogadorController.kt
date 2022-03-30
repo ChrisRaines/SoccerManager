@@ -111,6 +111,7 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
     }
 
 
+
     // Post para informar qual idUsuario esta vendendo jogador por idJogador
     // alterando o idUsuario do jogador para null, efetuando a venda, fazendo ele voltar para o mercado
     @PostMapping("/vender")
