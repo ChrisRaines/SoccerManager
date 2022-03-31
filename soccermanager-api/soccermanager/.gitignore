@@ -31,5 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/kotlin/br/com/valemobi/soccermanager/dto/CreateRequestUsuarioDTO.kt
-/src/main/kotlin/br/com/valemobi/soccermanager/dto/UpdateRequestUsuarioDTO.kt
