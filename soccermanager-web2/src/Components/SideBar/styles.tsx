@@ -101,14 +101,28 @@ a {
 }
 
 .dadosUsuario {
-    height: 70px;
+    height: 75px;
+    width: 178px;
     bottom: 20px;
     position: fixed;
-    align-itens: center;
+    align-items: center;
     text-align: center;
     float: left;
-    margin-left: 25px;
+    margin-left: 15px;
     color: #ffff;
+    display: flex;
+    justify-content: start;
+}
+
+.dadosUsuario p{
+    margin-left: 8px;
+}
+
+
+img {
+    width: 55px;
+    height: 55px;
+    border-radius: 30px;
 }
 
 #nome {
@@ -116,10 +130,10 @@ a {
 }
 
 .valor {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     color: #00FF7F;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-top: 55px;
 }
 

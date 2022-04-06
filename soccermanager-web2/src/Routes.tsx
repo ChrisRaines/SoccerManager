@@ -8,6 +8,7 @@ import Perfil from './Pages/Perfil';
 import Usuario from './Interfaces/usuarioInterface';
 import Jogador from './Interfaces/jogadorInterface';
 import Context from './Context/context';
+import Jogar from './Pages/JogarPartida';
 
 function Rotas() {
     const [usuario, setUsuario] = useState<Usuario>();
@@ -23,6 +24,7 @@ function Rotas() {
                         <Route path='/mercado' element={<Mercado />} />
                         <Route path='/myteam' element={<MyTeam />} />
                         <Route path='/perfil' element={<Perfil />} />
+                        <Route path='/jogar' element={<Jogar />} /> 
                     </Routes>
                 </Router>
             </Context.Provider>

@@ -3,8 +3,7 @@ import styled from "styled-components";
 export const ModalStyle = styled.div`
 
     .modal {
-        margin-top: -20px;
-        margin-left: 36%;
+        margin-left: 35%;
         width: 40vw;
         height: 35vh;
         border: solid 5px black;
@@ -28,7 +27,7 @@ export const ModalStyle = styled.div`
         height: 27vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
         margin: 0px;
         text-align: center;
     }
@@ -36,7 +35,7 @@ export const ModalStyle = styled.div`
     .botoes {
         height: auto;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
     button {

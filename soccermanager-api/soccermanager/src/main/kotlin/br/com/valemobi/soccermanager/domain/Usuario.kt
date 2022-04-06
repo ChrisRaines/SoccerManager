@@ -25,6 +25,9 @@ data class Usuario (
     @Column(name = "wallet", nullable = false)
     var wallet: Double? = 200_000.0,
 
+    @Column(name = "nome_clube", nullable = true)
+    var nomeClube: String? = null,
+
     @Column(name = "foto_perfil", nullable = true)
     var fotoPerfil: String? = null
 

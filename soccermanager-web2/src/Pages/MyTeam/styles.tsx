@@ -7,16 +7,17 @@ export const MyTeamStyle = styled.div`
 
     .container {
         margin: 0;
-        width: 100vw;
+        width: 95vw;
         height: 100vh;
         overflow-x: hidden;
         display: flex;
         justify-content: space-between;
+        margin-left: auto;
     }
 
     .jogadores{
-        margin-left: 18%;
-        margin-top: 4%;
+        margin-left: 10%;
+        margin-top: 5%;
         padding-left: 15px;
         padding-top: 10px;
         background: #1E212A;
@@ -26,7 +27,6 @@ export const MyTeamStyle = styled.div`
         
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         overflow: auto;      
         position: fixed;
     }
@@ -36,12 +36,11 @@ export const MyTeamStyle = styled.div`
         padding-top: 10px;
         padding-bottom: 10px;
         margin-bottom: 5px;
-        width: 360px;
-        height: 100px;
+        width: 95%;
+        height: 75px;
         background: #C0C0C0;
         border-radius: 5px;
         display: flex;
-        justify-content: start;
         cursor: pointer;
             li {
                 color: black;
@@ -66,7 +65,6 @@ export const MyTeamStyle = styled.div`
     }
 
 
-
     ul {
         margin: 0;
         padding: 0px;
@@ -86,9 +84,8 @@ export const MyTeamStyle = styled.div`
         width: 32vw;
         display: flex;
         justify-content: center;
-        margin-right: 7%;
-        margin-top: 6%;
-        
+        margin-right: 9%;
+        margin-top: 7%;
     }
 
     span {

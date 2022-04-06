@@ -8,8 +8,8 @@ export const SearchBarStyle = styled.div`
     display: flex;
     margin-top: 50px;
         & svg {
-            font-size: 45px;
-            margin-left: 50px;
+            font-size: 47px;
+            margin-left: 25px;
             cursor: pointer;
             color: #1E212A;
         }    

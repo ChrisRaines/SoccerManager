@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const ModalStyle = styled.div`
 
     .modal {
-        margin-top: 60px;
-        margin-left: 20%;
+        margin-top: 5%;
+        margin-left: 15%;
         width: 25vw;
         height: 80vh;
         border: solid 5px black;
@@ -27,20 +27,20 @@ export const ModalStyle = styled.div`
 
 
     .content {
-        widht: 100vw;
-        height: 82vh;
+        width: 100%;
+        height: 95%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         margin: 0px;
+        align-items: center;
     }
 
     .fotoPerfil {
         background: black;
         width: 180px;
         height: 180px;
-        margin-left: 68px;
-        margin-top: 10px;
+        margin-top: 10%;
         border-radius: 10px;
             img {
                 width: 180px;
@@ -60,7 +60,7 @@ export const ModalStyle = styled.div`
     ul {
         margin: 0;
         padding: 0;
-        // background: blue;
+        height: 70%;
     }
 
     li {

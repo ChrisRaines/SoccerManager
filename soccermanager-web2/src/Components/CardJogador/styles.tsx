@@ -6,7 +6,7 @@ export const CardStyle = styled.div`
     .container {
         display: flex;
         flex-direction: column;
-        margin-left: 200px;
+        margin-left: auto;
         width: 85%;
         height: 100%;
     }

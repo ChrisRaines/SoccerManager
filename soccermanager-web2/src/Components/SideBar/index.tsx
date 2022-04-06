@@ -1,5 +1,5 @@
 import { SideBarStyle } from './styles';
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect, useContext, useReducer } from "react";
 import { Link } from 'react-router-dom';
 import GroupsIcon from '@mui/icons-material/Groups';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
@@ -10,27 +10,46 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { api } from '../../Api';
 import Context from '../../Context/context';
 import Usuario from '../../Interfaces/usuarioInterface';
+import fotoUsuarioPadrao from "../../imagens/usuarioPadrao.png"
 
 
 interface SideBarProps {
     selected: string
 }
 
-const SideBar: React.FC<SideBarProps> = ({selected}) =>  {
+const SideBar: React.FC<SideBarProps> = ({ selected }) => {
 
     const [logoff, setLogoff] = useState<boolean>(false);
     const [color, setColor] = React.useState(0);
-    const [usuarioState, setUsuarioState] = useState<Usuario>();
 
-    const { usuario } = useContext(Context);
-    
+    let user = localStorage.getItem('usuario');
+    const usuarioData: Usuario = JSON.parse(user)
 
-    function LogoffPage(){
+    const { usuario, setUsuario } = useContext(Context);
+
+
+    console.log(new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(usuario?.wallet));
+
+    async function GetUsuarioById() {
+        try {
+            const res = await api.get<Usuario, any>(`/usuarios/${usuarioData.id}`);
+            setUsuario(res.data);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+    function LogoffPage() {
         localStorage.removeItem('usuario');
         setLogoff(true);
     }
 
-    
+    useEffect(() => {
+        GetUsuarioById();
+    }, [])
+
+
     return (
         <SideBarStyle>
             <div className="container">
@@ -68,11 +87,13 @@ const SideBar: React.FC<SideBarProps> = ({selected}) =>  {
                         </li>
 
 
-                        <li id='jogar' onClick={() => setColor(4)}
-                        style={{ backgroundColor: selected ===  "jogar" ? "#444" : "#1E212A" }}>
-                            <SportsIcon />
-                            Jogar Partida
-                        </li>
+                        <Link to='/jogar'>
+                            <li id='jogar' onClick={() => setColor(4)}
+                                style={{ backgroundColor: selected === "jogar" ? "#444" : "#1E212A" }}>
+                                <SportsIcon />
+                                Jogar Partida
+                            </li>
+                        </Link>
 
 
                         <Link to='/perfil'>
@@ -94,13 +115,13 @@ const SideBar: React.FC<SideBarProps> = ({selected}) =>  {
                     </ul>
                 </div>
 
-                <div className='valor'>${usuario?.wallet}</div>
+                <div className='valor'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(usuario?.wallet)}</div>
 
                 <div className='userLine'></div>
 
                 <div className='dadosUsuario'>
+                    <img src={usuario?.fotoPerfil ? usuario.fotoPerfil : fotoUsuarioPadrao} alt="" />
                     <p id='nome'>{usuario?.username}</p>
-                    <p id='email'>{usuario?.email}</p>
                 </div>
 
             </div>

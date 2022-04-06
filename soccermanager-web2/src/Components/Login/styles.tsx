@@ -3,14 +3,18 @@ import styled from 'styled-components'
 
 export const LoginStyle = styled.div`
 
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+
     .menu {
         background: black;
         width: 400px;
         height: 410px;
         opacity: 0.8;
         float: left;
-        margin-top: 8%;
-        margin-left: 32%;
+        margin-top: 10%;
     }
 
     h1 {
@@ -56,7 +60,7 @@ export const LoginStyle = styled.div`
 
         display: flex;
         flex-direction: column;
-        align-itens: center;
+        /* align-itens: center; */
         justify-content: space-around;
     }
 

@@ -13,17 +13,24 @@ export const PerfilStyle = styled.div`
         display: flex;
     }
 
-    .content {
+    .divPerfil {
         width: 60vw;
-        height: 65vh;
-        background: blue;
-        margin-top: 110px;
-        margin-left: 27%;
+        height: 76vh;
+        margin-top: 13vh;
+        margin-left: 25%;
+        border-radius: 10px;
+    }
+
+    .content {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        
         border-radius: 10px;
         background: #1E212A;
-
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
+        padding-bottom: 25px;
     }
 
 
@@ -31,6 +38,7 @@ export const PerfilStyle = styled.div`
         display: flex;
         flex-direction: column;
         margin-left: 10%;
+        align-items: center;
 
         p {
             text-decoration: underline;
@@ -44,9 +52,20 @@ export const PerfilStyle = styled.div`
     .divFotoPerfil {
         width: 230px;
         height: 230px;
-        background: black;
+        background: #333;
         border-radius: 115px;
         margin-top: 16%;
+    }
+
+    .divFotoPerfil img {
+        width: 100%;
+        height: 100%;
+        border-radius: 115px;
+    }
+
+    .inputFoto{
+        width: 130px;
+        margin-top: 15px;
     }
 
     .infos {
@@ -81,7 +100,6 @@ export const PerfilStyle = styled.div`
     }
 
     button {
-        margin-top: 10px;
         margin-left: 24%;
         width: 150px;
         height: 33px;

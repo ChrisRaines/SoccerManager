@@ -42,7 +42,7 @@ function MyTeam() {
 
     async function GetJogadorByIdUsuario() {
         try {
-            const res = await api.get<Jogador[]>(`/jogadores/findByIdUsuario/${usuarioData.id}`);
+            const res = await api.get<Jogador[]>(`/jogadores/${usuarioData.id}/usuario`);
             setJogadores(res.data);
 
         } catch (err) {
@@ -106,7 +106,7 @@ function MyTeam() {
                                     <div className="jogador" key={jogador.id} onClick={e => handleClick(jogador.id)}>
                                         {console.log(idJogador)}
 
-                                        <div className="foto"><img src={Ronaldinho} alt="" /></div>
+                                        <div className="foto"><img src={jogador.fotoJogador} alt="" /></div>
                                         <ul>
                                             <li>Nome: <span>{jogador.nomeJogador}</span></li>
                                             <li>Posição: <span>{jogador.posicaoJogador}</span></li>

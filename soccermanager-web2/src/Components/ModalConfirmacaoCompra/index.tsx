@@ -57,9 +57,6 @@ const ModalConfirmacao = ({ onClose = () => { }, children, idJogador, jogador, h
     }
 
 
-    
-
-
     return (
 
         <ModalStyle>

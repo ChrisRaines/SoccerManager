@@ -16,12 +16,12 @@ interface UsuarioRepository : JpaRepository<Usuario, Long> {
     @Query(value =
     """
         UPDATE public.usuario
-        SET username = :username, email = :email, password = :password, wallet = :wallet, foto_perfil = :fotoPerfil
+        SET username = :username, email = :email, password = :password, wallet = :wallet, nome_clube = :nomeClube, foto_perfil = :fotoPerfil
         WHERE id = :id
         """
         , nativeQuery = true
     )
-    fun update(id: Long, username: String, email: String, password: String, wallet: Double, fotoPerfil: String?);
+    fun update(id: Long, username: String, email: String, password: String, wallet: Double, nomeClube: String?, fotoPerfil: String?);
 
 
     @Modifying

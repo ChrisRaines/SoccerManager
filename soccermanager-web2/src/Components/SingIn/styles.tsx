@@ -3,6 +3,10 @@ import styled from 'styled-components'
 
 export const SingInStyle = styled.div`
 
+.container {
+    display: flex;
+    justify-content: center;
+}
     
 .menu {
     background: black;
@@ -10,8 +14,7 @@ export const SingInStyle = styled.div`
     height: 410px;
     opacity: 0.8;
     float: left;
-    margin-top: 8%;
-    margin-left: 32%;
+    margin-top: 10%;
 }
 
 h1 {
@@ -56,7 +59,6 @@ span {
 
     display: flex;
     flex-direction: column;
-    align-itens: center;
     justify-content: space-around;
 }
 
@@ -104,5 +106,6 @@ p {
     margin-top: 15px;
     cursor: pointer;
 }
+
     
 `

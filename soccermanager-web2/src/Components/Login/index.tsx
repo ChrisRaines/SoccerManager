@@ -17,7 +17,7 @@ const Login: React.FC<LoginProps> = ({ setPage }) => {
 
     const { setUsuario } = useContext(Context);
 
-    
+
     let history = useNavigate();
 
     function changePage() {
@@ -54,24 +54,27 @@ const Login: React.FC<LoginProps> = ({ setPage }) => {
 
     return (
         <LoginStyle>
-            <div className="menu">
-                <Link to="/"> <h1>Soccer<span>Manager</span></h1> </Link>
+            <div className="container">
+                <div className="menu">
+                    <Link to="/"> <h1>Soccer<span>Manager</span></h1> </Link>
 
-                <h2>Entrar</h2>
-
-
-                <div className="form">
-
-                    {erro && <h3>Informações inválidas!</h3>}
+                    <h2>Entrar</h2>
 
 
-                    <input type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} />
-                    <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                    <div className="form">
 
-                    <button onClick={Logar}>Logar</button>
+                        {erro && <h3>Informações inválidas!</h3>}
 
-                    <p onClick={changePage}>Registrar-se</p>
 
+                        <input type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} />
+                        <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+
+                        <button onClick={Logar}>Logar</button>
+
+                        <p onClick={changePage}>Registrar-se</p>
+
+
+                    </div>
 
                 </div>
 

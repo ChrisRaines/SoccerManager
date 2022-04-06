@@ -13,11 +13,11 @@ export default function Home(){
         <HomeStyle>
 
         <div className="principal">
-
-            <h1>Leve seu time para a vitória!</h1>
-
-            <div>
-                <div className="btn"><h2 id="jogar">Jogar</h2></div>
+            <div className="teste">
+                <h1>Leve seu time para a vitória!</h1>
+            </div>
+            <div className="teste">
+            <div className="btn"><h2 id="jogar">Jogar</h2></div>
                 <img id="imagemHome" src={imgHomeBola} alt="" />
             </div>
             

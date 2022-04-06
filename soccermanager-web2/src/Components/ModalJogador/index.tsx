@@ -51,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({ onClose = () => { }, children, setIsModal
 
                         <div>
                             <div className="fotoPerfil">
-                                <img src={Ronaldinho} alt="" />
+                                <img src={jogador.fotoJogador} alt="" />
                             </div>
                         </div>
 

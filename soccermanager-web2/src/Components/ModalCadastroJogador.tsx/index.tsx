@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { ModalStyle } from "./styles";
 import { api } from "../../Api";
+import fotoJogadorPadrao from '../../imagens/jogadorPadrao.png';
 
 const Modal = ({ onClose = () => { }, children }) => {
     const [nomeJogador, setNomeJogador] = useState("");
@@ -11,7 +12,7 @@ const Modal = ({ onClose = () => { }, children }) => {
     const [posicaoJogador, setPosicaoJogador] = useState("");
     const [overallJogador, setOverallJogador] = useState("");
     const [valorJogador, setValorJogador] = useState("");
-    const [fotoJogador, setFotoJogador] = useState(null);
+    const [fotoJogador, setFotoJogador] = useState("");
 
     const [cadastrou, setCadastrou] = useState<boolean>(false);
 
@@ -32,10 +33,26 @@ const Modal = ({ onClose = () => { }, children }) => {
 
             console.log(res.data)
             setCadastrou(true);
+            console.log(fotoJogador);
 
         } catch (err) {
             console.log(err)
         }
+    }
+
+    function PreviewFile(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = function () {
+            setFotoJogador(reader.result.toString())
+            console.log(reader.result.toString())
+        };
+
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+
     }
 
 
@@ -48,13 +65,16 @@ const Modal = ({ onClose = () => { }, children }) => {
 
                     <div className="content">
 
-                        <div>
+                        <div className="fotoInfos">
+
                             <div className="fotoPerfil">
-                                <img src="" alt="" />
+                                <img src={fotoJogador ? fotoJogador : fotoJogadorPadrao} alt="" />
                             </div>
-                            <input 
+
+                            <input className="inputFoto"
                                 type="file"
-                                onChange={(e) => { setFotoJogador(e.target.files[0]) }}
+                                placeholder="Adicionar imagem"
+                                onChange={(e) => { PreviewFile(e.target.files[0]) }}
                             />
                         </div>
 
@@ -82,7 +102,7 @@ const Modal = ({ onClose = () => { }, children }) => {
                             </select>
 
                             <input type="text" placeholder="Overall" onChange={e => setOverallJogador(e.target.value)} />
-                            <input type="number" placeholder="Valor Mercado" onChange={e => setValorJogador(e.target.value)}/>
+                            <input type="number" placeholder="Valor Mercado" onChange={e => setValorJogador(e.target.value)} />
 
                             <button className="btn" onClick={CadastrarJogador}>Cadastrar</button>
                         </div>

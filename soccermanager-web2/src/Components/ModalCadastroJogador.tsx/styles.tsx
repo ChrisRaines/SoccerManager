@@ -31,20 +31,26 @@ export const ModalStyle = styled.div`
     }
 
     .content {
-        widht: 100vw;
-        height: 82vh;
+        width: 100%;
+        height: 94%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         margin: 0px;
     }
 
     .fotoPerfil {
-        background: black;
+        background: #333;
         width: 215px;
         height: 215px;
-        margin-left: 50px;
         margin-top: 40px;
         border-radius: 15px;
+        padding: 0;
+    }
+
+    .fotoPerfil img {
+        width: 100%;
+        height: 100%;
+        border-radius: 5%;
     }
 
     p {
@@ -53,6 +59,15 @@ export const ModalStyle = styled.div`
         text-decoration: underline;
         cursor: pointer;
     }
+
+
+    .fotoInfos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 6%;
+    }
+
 
     .infos {
         width: 300px;
@@ -64,6 +79,7 @@ export const ModalStyle = styled.div`
         margin-top: 25px;
     }
 
+    
     input {
         width: 284px;
         height: 33px;
@@ -71,6 +87,15 @@ export const ModalStyle = styled.div`
         margin: 0;
         border-style: none;
     }
+
+    .inputFoto {
+        margin-top: 10px;
+        width: 115px;
+        height: 23px;
+        border-style: none;
+        padding: 0;
+    }
+
 
     button {
         width: 150px;

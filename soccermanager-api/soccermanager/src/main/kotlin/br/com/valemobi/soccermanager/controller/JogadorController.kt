@@ -15,7 +15,7 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
 
     // Get para buscar todos os jogadores cadastrados
     @GetMapping()
-    fun findAllJogadores(): ResponseEntity<List<Jogador?>> {
+    fun findAll(): ResponseEntity<List<Jogador?>> {
         val jogadores: List<Jogador?> = repositoryJogador.findAll();
 
         if (!jogadores.isEmpty()){
@@ -27,8 +27,8 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
 
 
     // Get para buscar todos os jogadores disponiveis no mercado, sem um idUsuario preenchido
-    @GetMapping("/jogadores-mercado")
-    fun findAllJogadoresIdUsuarioNull(): ResponseEntity<List<Jogador?>>{
+    @GetMapping("/mercado")
+    fun findAllMercado(): ResponseEntity<List<Jogador?>>{
         val jogadores: List<Jogador?> = repositoryJogador.findAllByIdUsuarioIsNull();
 
         if (!jogadores.isEmpty()){
@@ -41,7 +41,7 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
 
     // Get para buscar um jogador por id
     @GetMapping("/{id}")
-    fun findJogadorById(@PathVariable("id") id:Long): ResponseEntity<Jogador> {
+    fun findById(@PathVariable("id") id:Long): ResponseEntity<Jogador> {
         return repositoryJogador.findById(id)
             .map { record -> ResponseEntity.ok().body(record) }
             .orElse(ResponseEntity.notFound().build())
@@ -51,7 +51,7 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
 
     // Get para fazer a busca de jogadores apenas de um usuario especifico
     // Por id do usuario
-    @GetMapping("/findByIdUsuario/{idUsuario}")
+    @GetMapping("/{idUsuario}/usuario")
     fun findJogadorByIdUsuario(@PathVariable idUsuario: Long): ResponseEntity<List<Jogador?>> {
         val jogadores: List<Jogador?> = repositoryJogador.findAllByIdUsuario(idUsuario)
 
@@ -62,7 +62,6 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
         return ResponseEntity.status(404).build()
 
     }
-
 
 
     // POST para cadastrar um Jogador
@@ -83,9 +82,25 @@ data class JogadorController(var repositoryJogador: JogadorRepository){
     }
 
 
+    @PutMapping("/update")
+    fun updateJogador(@RequestBody jogador : UpdateRequestJogadorDto): ResponseEntity<Jogador> {
+        repositoryJogador.updateJogador(jogador.id,
+                                         jogador.nomeJogador,
+                                         jogador.idadeJogador,
+                                         jogador.nacionalidadeJogador,
+                                         jogador.clubeJogador,
+                                         jogador.posicaoJogador,
+                                         jogador.overallJogador,
+                                         jogador.valorJogador,
+                                         jogador.fotoJogador)
+
+        return ResponseEntity.status(200).build();
+    }
+
+
     // Delete para excluir um jogador existente
     @DeleteMapping("/{id}")
-    fun deleteJogadorById(@PathVariable id: Long): ResponseEntity<Jogador>{
+    fun deleteById(@PathVariable id: Long): ResponseEntity<Jogador>{
 
         if (repositoryJogador.existsById(id)) {
             repositoryJogador.deleteById(id);

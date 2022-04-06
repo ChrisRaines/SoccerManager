@@ -20,7 +20,7 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
 
     // Get para buscar todos os usuarios cadastrados
     @GetMapping()
-    fun findAllUsuarios(): ResponseEntity<List<Usuario?>> {
+    fun findAll(): ResponseEntity<List<Usuario?>> {
         val usuarios: List<Usuario?> = repositoryUsuario.findAll();
 
         if (!usuarios.isEmpty()){
@@ -33,7 +33,7 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
 
     // Get para buscar um usuario por id
     @GetMapping("/{id}")
-    fun findUsuarioById(@PathVariable("id") id:Long): ResponseEntity<Usuario> {
+    fun findById(@PathVariable("id") id:Long): ResponseEntity<Usuario> {
         return repositoryUsuario.findById(id)
             .map { record -> ResponseEntity.ok().body(record) }
             .orElse(ResponseEntity.notFound().build())
@@ -70,7 +70,7 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
 
     // Delete para excluir um usuario existente
     @DeleteMapping("/{id}")
-    fun deleteUsuarioById(@PathVariable id: Long): ResponseEntity<Usuario>{
+    fun deleteById(@PathVariable id: Long): ResponseEntity<Usuario>{
 
         if (repositoryUsuario.existsById(id)) {
             repositoryUsuario.deleteById(id);
@@ -80,7 +80,6 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
 
         return ResponseEntity.status(204).build();
     }
-
 
 
     // Update para atualizar as informações de um usuario
@@ -94,6 +93,7 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
                                      dadosUsuario.email,
                                      dadosUsuario.password,
                                      dadosUsuario.wallet,
+                                     dadosUsuario.nomeClube,
                                      dadosUsuario.fotoPerfil)
 
             return ResponseEntity.status(200).build();

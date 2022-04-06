@@ -4,10 +4,16 @@ import styled from 'styled-components'
 export const HomeStyle = styled.div`
 
     .principal {
+        width: 100%;
+        height: 100%;
+        
         margin-top: 6px;
-        align-itens: center;
+        align-items: center;
         background: black;
-
+    }
+    .teste {
+        display: flex;
+        justify-content: center;
     }
 
     img {
@@ -26,7 +32,8 @@ export const HomeStyle = styled.div`
         color: #FFFFFF;
         z-index: 1;
         margin-top: 11%;
-        margin-left: 17%;
+        margin-left: auto;
+        margin-right: auto;
     
         position: absolute;
 
@@ -39,12 +46,12 @@ export const HomeStyle = styled.div`
         background: #00FF7F;
         position: absolute;
         margin-top: 20%;
-        margin-left: 39.4%;
+        /* margin-left: 39.4%; */
         color: #ffff;
         z-index: 1;
         width: 140px;
         padding-left: 75px;
-        align-itens: center;
+        align-items: center;
         border-radius: 45px;
 
         transition: box-shadow 0.2s ease, transform 0.2s ease;

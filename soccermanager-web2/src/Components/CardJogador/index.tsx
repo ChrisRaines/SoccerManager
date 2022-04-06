@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { CardStyle } from './styles'
 import { api } from "../../Api";
-import Ronaldinho from '../../imagens/ronaldinho.png';
 import Jogador from '../../Interfaces/jogadorInterface'
 import Context from "../../Context/context";
 
@@ -13,18 +12,18 @@ export interface CardJogadorProps {
 }
 
 
-const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogador, setJogador }) => {
+const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogador, setJogador}) => {
     
     const { jogadores, setJogadores } = useContext(Context);
+
+    console.log("jog", jogadores)
 
 
     async function GetJogadoresByIdUsuarioNull() {
         try {
             
-            const res = await api.get<Jogador[], any>(`/jogadores/jogadores-mercado`);
+            const res = await api.get<Jogador[], any>(`/jogadores/mercado`);
             setJogadores(res.data);
-        
-            console.log(res.data);
 
         } catch (err) {
             console.log(err)
@@ -32,18 +31,17 @@ const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogad
     }
 
 
-
-    useEffect(() => {
-        GetJogadoresByIdUsuarioNull();
-    }, []);
-
-
     function modalAndIdJogador(idJog, jog){
         setIdJogador(idJog);
         setIsModalVisible(true);
         setJogador(jog);
     }
+    
+    useEffect(() => {
+        GetJogadoresByIdUsuarioNull();
+    }, []);
 
+    
 
     return (
         <CardStyle>
@@ -58,7 +56,7 @@ const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogad
 
                             <div className="img-compra">
                                 <div className="image">
-                                    <img src={Ronaldinho} alt="" />
+                                    <img src={jogador.fotoJogador} alt="" />
                                 </div>
                                 <button className="btn" onClick={e => modalAndIdJogador(jogador.id, jogador)}>Comprar Jogador</button>
                             </div>
@@ -70,7 +68,7 @@ const CardJogador: React.FC<CardJogadorProps> = ({ setIsModalVisible, setIdJogad
                                 <p id="clube">Clube: <span>{jogador.clubeJogador}</span></p>
                                 <p id="posicao">Posição: <span>{jogador.posicaoJogador}</span></p>
                                 <p id="over">Overall: <span>{jogador.overallJogador}</span></p>
-                                <p id="valor">Valor: <span>${jogador.valorJogador}</span></p>
+                                <p id="valor">Valor: <span>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(jogador.valorJogador)}</span></p>
                             </div>
 
                         </div>
