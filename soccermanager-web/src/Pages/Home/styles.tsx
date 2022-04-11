@@ -8,12 +8,30 @@ export const HomeStyle = styled.div`
         height: 100%;
         
         margin-top: 6px;
-        align-items: center;
         background: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .teste {
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content2 {
+        width: 100%;
+        height: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
+    }
+
+
+    a {
+        text-decoration: none;
+        color: #fff;
     }
 
     img {
@@ -41,16 +59,20 @@ export const HomeStyle = styled.div`
         text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
+    h2 {
+        margin: 0;
+        padding: 0;
+    }
+
 
     .btn {
         background: #00FF7F;
         position: absolute;
         margin-top: 20%;
-        /* margin-left: 39.4%; */
         color: #ffff;
         z-index: 1;
-        width: 140px;
-        padding-left: 75px;
+        width: 200px;
+        height: 65px;
         align-items: center;
         border-radius: 45px;
 
@@ -63,10 +85,8 @@ export const HomeStyle = styled.div`
 
     .btn:hover {
         transition: .2s ease-out;
-        background: #3CB371;
+        background: #2b8a55;
     }
-
-
 
 
 `

@@ -134,7 +134,8 @@ img {
     font-weight: 600;
     color: #00FF7F;
     margin-left: 10px;
-    margin-top: 55px;
+    margin-top: 60%;
+    
 }
 
 `

@@ -6,8 +6,6 @@ import br.com.valemobi.soccermanager.dto.CreateRequestUsuarioDTO
 import br.com.valemobi.soccermanager.dto.UpdateRequestUsuarioDTO
 import br.com.valemobi.soccermanager.dto.UpdateRequestWalletUsuarioDTO
 import br.com.valemobi.soccermanager.repository.UsuarioRepository
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -17,6 +15,7 @@ import java.util.*
 @CrossOrigin("*")
 class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
 
+    val random = Random();
 
     // Get para buscar todos os usuarios cadastrados
     @GetMapping()
@@ -38,7 +37,6 @@ class UsuarioController (var repositoryUsuario: UsuarioRepository ) {
             .map { record -> ResponseEntity.ok().body(record) }
             .orElse(ResponseEntity.notFound().build())
     }
-
 
 
     // POST para cadastrar um usuario

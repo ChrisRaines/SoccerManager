@@ -7,15 +7,15 @@ function Header() {
         <HeaderStyle>
             <div className="header">
                 <h1><span>Soccer</span>Manager</h1>
-                
+
                 <div className="menu">
-                <Link to='/sobre'> <p>Sobre</p> </Link>
-                <Link to='/loginandsingin'> <p>Login</p> </Link>
-                <Link to='/loginandsingin'>
-                    <div className="btnCadastrar">Cadastrar-se</div>
-                </Link>
+                    <Link to='/sobre'> <p>Sobre</p> </Link>
+                    <Link to='/loginandsingin'> <p>Login</p> </Link>
+                    <Link to='/loginandsingin'>
+                        <div className="btnCadastrar">Cadastrar-se</div>
+                    </Link>
                 </div>
-                
+
             </div>
         </HeaderStyle>
     );

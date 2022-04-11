@@ -18,7 +18,6 @@ export const MyTeamStyle = styled.div`
     .jogadores{
         margin-left: 10%;
         margin-top: 5%;
-        padding-left: 15px;
         padding-top: 10px;
         background: #1E212A;
         width: 31%;
@@ -29,10 +28,19 @@ export const MyTeamStyle = styled.div`
         flex-direction: column;
         overflow: auto;      
         position: fixed;
+
+
+        p {
+            color: #ffff;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
     }
 
     
     .jogador {
+        margin-left: 10px;
         padding-top: 10px;
         padding-bottom: 10px;
         margin-bottom: 5px;
@@ -86,6 +94,7 @@ export const MyTeamStyle = styled.div`
         justify-content: center;
         margin-right: 9%;
         margin-top: 7%;
+
     }
 
     span {

@@ -27,9 +27,6 @@ const SideBar: React.FC<SideBarProps> = ({ selected }) => {
 
     const { usuario, setUsuario } = useContext(Context);
 
-
-    console.log(new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(usuario?.wallet));
-
     async function GetUsuarioById() {
         try {
             const res = await api.get<Usuario, any>(`/usuarios/${usuarioData.id}`);
@@ -80,11 +77,11 @@ const SideBar: React.FC<SideBarProps> = ({ selected }) => {
                         </Link>
 
 
-                        <li id='clubes' onClick={() => setColor(3)}
+                        {/* <li id='clubes' onClick={() => setColor(3)}
                             style={{ backgroundColor: selected === "clube" ? "#444" : "#1E212A" }}>
                             <PolicyIcon />
                             Clubes
-                        </li>
+                        </li> */}
 
 
                         <Link to='/jogar'>

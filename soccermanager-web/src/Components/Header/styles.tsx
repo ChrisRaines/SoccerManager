@@ -10,9 +10,7 @@ export const HeaderStyle = styled.div`
         justify-content: space-between;
         flex-direction: row;
         align-items: center;
-        // position: fixed;
         z-index: 2;
-        // margin-top: -12px;
         box-shadow: 0 1px 6px 0px #00FF7F;
     }
 
@@ -25,6 +23,7 @@ export const HeaderStyle = styled.div`
 
     a {
         text-decoration: none;
+        color: #ffff;
     }
 
     span {
@@ -39,7 +38,6 @@ export const HeaderStyle = styled.div`
         flex-direction: row;
         justify-content: space-around;  
         padding: 10px
-        aling-itens: center;
     }
 
     p {
@@ -63,7 +61,7 @@ export const HeaderStyle = styled.div`
 
     .btnCadastrar:hover {
         transition: .2s ease-out;
-        background: #3CB371;
+        background: #339c62;
     }
 
 `

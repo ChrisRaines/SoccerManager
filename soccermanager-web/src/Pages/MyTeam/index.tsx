@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { api } from "../../Api";
 import { MyTeamStyle } from './styles'
 import SideBar from "../../Components/SideBar";
@@ -10,6 +10,7 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { Snackbar, SnackbarOrigin } from "@mui/material";
 import Usuario from '../../Interfaces/usuarioInterface';
 import Jogador from '../../Interfaces/jogadorInterface';
+import Context from "../../Context/context";
 
 
 export interface State extends SnackbarOrigin {
@@ -34,9 +35,10 @@ function MyTeam() {
     const [idJogador, setIdJogador] = useState<number>();
     const [jogadores, setJogadores] = useState<Jogador[]>([]);
 
+    const { usuario } = useContext(Context);
 
-    let usuario = localStorage.getItem('usuario');
-    const usuarioData: Usuario = JSON.parse(usuario)
+    let user = localStorage.getItem('usuario');
+    const usuarioData: Usuario = JSON.parse(user)
     console.log(usuarioData.id);
 
 
@@ -99,7 +101,10 @@ function MyTeam() {
 
                         {isModalVisibleDetails ? <ModalJogador setIsModalVisibleVenda={setIsModalVisibleVenda} onClose={() => setIsModalVisibleDetails(false)} children={idJogador} /> :
 
+                            
                             <div className="jogadores">
+                            <p>{usuario?.nomeClube}</p>
+
 
                                 {jogadores && jogadores.map((jogador) => (
 
@@ -127,7 +132,9 @@ function MyTeam() {
                     </div>
 
 
-                    <div className="campo"><img src={campo} alt="" /></div>
+                    <div className="campo">
+                        <img src={campo} alt="" />
+                    </div>
 
                 </div>
             </MyTeamStyle>

@@ -92,7 +92,7 @@ const Modal = ({ onClose = () => { }, children }) => {
                                 <option value="" disabled selected>-- Selecionar Posição --</option>
                                 <option value="Meia">Meia</option>
                                 <option value="Volante">Volante</option>
-                                <option value="Atacante">Zagueiro</option>
+                                <option value="Zagueiro">Zagueiro</option>
                                 <option value="Lateral Esquerdo">Lateral Esquerdo</option>
                                 <option value="Lateral Direito">Lateral Direito</option>
                                 <option value="Centroavante">Centroavante</option>
@@ -114,7 +114,6 @@ const Modal = ({ onClose = () => { }, children }) => {
         </ModalStyle>
     );
 };
-
 
 export default Modal;
 
